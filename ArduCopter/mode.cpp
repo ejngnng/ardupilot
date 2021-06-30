@@ -320,7 +320,9 @@ bool Copter::set_mode(const uint8_t new_mode, const ModeReason reason)
 void Copter::update_flight_mode()
 {
     surface_tracking.invalidate_for_logging();  // invalidate surface tracking alt, flight mode will set to true if used
-
+    if(flightmode->mode_number() != Mode::Number::LOITER) {
+        copter.is_change_alt = false;
+    }
     flightmode->run();
 }
 
